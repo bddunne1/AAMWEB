@@ -60,7 +60,7 @@ function renderChrome() {
   if (header) {
     header.innerHTML = `
       <div class="topbar"><div class="wrap">
-        <span>Made in Manteno, Illinois since 1965</span>
+        <span>Serving customers since 1965 · Manteno, Illinois</span>
         <span><a href="tel:18003380557">Toll-free ${COMPANY.tollFree}</a><a href="catalogs.html" class="hide-sm">Download catalog</a></span>
       </div></div>
       <div class="wrap nav-row">
@@ -85,7 +85,7 @@ function renderChrome() {
     footer.innerHTML = `
       <div class="wrap footer-grid">
         <div>${LOGO}
-          <p class="muted">Rope, cord and twine for commercial, industrial, marine and agricultural customers, made in Illinois since 1965.</p>
+          <p class="muted">Rope, cord and twine for commercial, industrial, marine and agricultural customers since 1965.</p>
         </div>
         <div><h4>Products</h4><ul>${cats}<li><a href="catalogs.html">Catalogs &amp; spec sheets</a></li></ul></div>
         <div><h4>Industries</h4><ul>${inds}</ul></div>
@@ -143,7 +143,7 @@ function initCatalog() {
       (state.use === 'all' || p.uses.includes(state.use)) &&
       (!q || (p.name + ' ' + p.desc).toLowerCase().includes(q)));
     const blurb = state.cat === 'all'
-      ? 'Braided and twisted rope, twine, cord and specialty lines, made in Manteno, Illinois and put up in any format you need.'
+      ? 'Braided and twisted rope, twine, cord and specialty lines, put up in any format you need.'
       : CATEGORIES[state.cat].blurb;
     $('#cat-blurb').textContent = blurb;
     $('#result-count').textContent = `${list.length} product${list.length === 1 ? '' : 's'}`;

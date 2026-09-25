@@ -285,6 +285,11 @@ select:focus, input:focus, textarea:focus { border-color: var(--navy-700); outli
 .value .num { font-family: var(--font-head); font-size: 2.6rem; color: var(--hemp); line-height: 1; display: block; margin-bottom: 12px; }
 @media (max-width: 860px) { .values { grid-template-columns: 1fr; } }
 
+/* Under construction */
+.construction { max-width: 560px; text-align: center; }
+.construction .rope-icon { width: 88px; height: 88px; margin: 0 auto 24px; }
+.construction .btn-row { justify-content: center; }
+
 /* Contact */
 .contact-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: start; }
 .contact-card { background: var(--paper); border-radius: 14px; padding: 32px; }

@@ -17,7 +17,7 @@ python3 -m http.server 8000
 | Home | `index.html` | Hero, trust strip, shop by construction, industries, rope finder, custom and private label, history, quote call-to-action |
 | Catalog | `products.html` | Filter by category tab, material, industry and keyword search. Filters are kept in the URL (e.g. `?cat=braided&use=marine`) |
 | Product detail | `product.html?id=…` | One template for every product: fiber property meters, spec table, packaging options, related products |
-| About | `about.html` | Story, values, timeline |
+| About | `about.html` | Under construction until the company story is written |
 | Contact / quote | `contact.html` | Structured quote form (customer type, product, size, quantity and put-up) |
 | Catalogs | `catalogs.html` | PDF download hub |
 
@@ -32,12 +32,12 @@ injected by `assets/js/main.js`, so edit them once there.
 | Browse **by application/industry** as well as by product | Pelican Rope ("Rope by Application"), Yale Cordage, Samson | Home "Industries" grid and the catalog's industry filter |
 | Browse **by construction** (double braid, 12-strand, kernmantle…) | Pelican Rope ("Rope by Construction"), Samson | Home category tiles and catalog tabs |
 | Product pages with **spec tables** and downloadable data sheets | Samson, Yale, New England Ropes | `product.html` spec table and `catalogs.html` |
-| Strong **heritage / made-in-USA** story | New England Ropes (Fall River, MA), Samson | Hero, trust strip, timeline |
+| Strong **heritage** story | New England Ropes, Samson | Hero stats, timeline (founded 1965). No made-in-USA claims: Aamstrand products are not made in the US |
 | **Quote-driven** B2B calls to action instead of a cart | Most industrial rope makers | "Request a Quote" button in the header, CTA bands, structured quote form |
 | Help choosing a fiber | Samson, Yale (fiber and construction guides) | Home "Rope finder" and material meters on product pages |
 
-Aamstrand's advantage over these companies is that it makes its own rope and packages
-it to order. That's why **Custom & Private Label** has its own section and nav item.
+Aamstrand's advantage over these companies is that it cuts, colors and packages rope
+to order. That's why **Custom & Private Label** has its own section and nav item.
 
 ## Design
 
@@ -58,8 +58,9 @@ it to order. That's why **Custom & Private Label** has its own section and nav i
 - [ ] **Industry tags** on each product (`uses` in `products.js`) are a first guess.
 - [ ] **Packaging formats** list (reels, coils, hanks, mini coils, tubes, center-pull, cones/balls, shrink wrap, poly bag).
 - [ ] **Sales email:** `sales@aamstrand.com` in `main.js` is a placeholder.
-- [ ] Office hours, map embed, certifications, founder story (marked `[Draft: …]`).
+- [ ] Office hours and map embed (marked `[Draft: …]`).
+- [ ] Write the About page (`about.html` is a placeholder for now).
 - [ ] Link the real PDFs on `catalogs.html`.
-- [ ] Photography: facility, braiding floor, product close-ups, industry scenes.
+- [ ] Photography: facility, product close-ups, industry scenes.
 - [ ] The quote form currently opens the visitor's email client. Connect it to a form
       service or CRM before launch.
