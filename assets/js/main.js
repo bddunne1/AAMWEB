@@ -76,6 +76,11 @@ function renderChrome() {
       const open = header.classList.toggle('nav-open');
       toggle.setAttribute('aria-expanded', open);
     });
+    $('#primary-nav', header).addEventListener('click', (e) => {
+      if (!e.target.closest('a')) return;
+      header.classList.remove('nav-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
   }
 
   const footer = $('#site-footer');
@@ -158,9 +163,22 @@ function initCatalog() {
     history.replaceState(null, '', url.toString() ? `?${url}` : location.pathname);
   }
 
-  $('#cat-tabs').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) { state.cat = b.dataset.cat; render(); } });
-  $('#mat-filter').addEventListener('change', (e) => { state.mat = e.target.value; render(); });
-  $('#use-filter').addEventListener('change', (e) => { state.use = e.target.value; render(); });
+  // After a tab or filter change, if the visitor had scrolled down into the old
+  // results, bring the top of the new results back into view under the sticky bars.
+  function showResults() {
+    const blurb = $('#cat-blurb');
+    const bar = $('.catalog-bar');
+    const barH = getComputedStyle(bar).position === 'sticky' ? bar.offsetHeight : 0;
+    const offset = headerHeight() + barH;
+    if (blurb.getBoundingClientRect().top < offset) {
+      blurb.style.scrollMarginTop = `${offset}px`;
+      blurb.scrollIntoView({ block: 'start', behavior: 'instant' });
+    }
+  }
+
+  $('#cat-tabs').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) { state.cat = b.dataset.cat; render(); showResults(); } });
+  $('#mat-filter').addEventListener('change', (e) => { state.mat = e.target.value; render(); showResults(); });
+  $('#use-filter').addEventListener('change', (e) => { state.use = e.target.value; render(); showResults(); });
   $('#search').addEventListener('input', (e) => { state.q = e.target.value; render(); });
   render();
 }
@@ -294,10 +312,46 @@ function initQuote() {
   });
 }
 
+/* ---------- Scroll position on page load ---------- */
+
+function headerHeight() {
+  const header = $('#site-header');
+  return header ? header.offsetHeight : 0;
+}
+
+function syncHeaderHeight() {
+  document.documentElement.style.setProperty('--header-h', `${headerHeight()}px`);
+}
+
+// Back/forward and refresh keep the browser's normal behavior (return to where you were).
+const navType = performance.getEntriesByType('navigation')[0]?.type;
+const restoringScroll = navType === 'back_forward' || navType === 'reload';
+
+// Stop re-applying the initial position once the visitor starts scrolling.
+let userScrolled = false;
+['wheel', 'touchstart', 'keydown', 'mousedown'].forEach((type) =>
+  window.addEventListener(type, () => { userScrolled = true; }, { once: true, passive: true }));
+
+// Every page opens at the top, or at the section named in the URL (#industries,
+// #custom, #quote). The header and page content are rendered by this script,
+// so the browser's own jump happens before layout settles. Re-apply it once
+// rendering is done and again after fonts load. scrollIntoView is used rather
+// than window.scrollTo so it also works when the site is shown inside a frame.
+function setInitialScroll() {
+  if (restoringScroll || userScrolled) return;
+  const target = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  (target || document.body).scrollIntoView({ block: 'start', behavior: 'instant' });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderChrome();
   initHome();
   initCatalog();
   initProduct();
   initQuote();
+  syncHeaderHeight();
+  setInitialScroll();
 });
+
+window.addEventListener('load', () => { syncHeaderHeight(); setInitialScroll(); });
+window.addEventListener('resize', syncHeaderHeight);

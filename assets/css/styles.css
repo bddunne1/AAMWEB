@@ -21,10 +21,13 @@
   --font-head: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --wrap: 1200px;
+  --header-h: 105px; /* updated from the real header height by main.js */
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+/* Keep section links from landing underneath the sticky header */
+main [id] { scroll-margin-top: calc(var(--header-h) + 8px); }
 body { margin: 0; font-family: var(--font-body); color: var(--ink); background: var(--white); line-height: 1.6; font-size: 16px; -webkit-font-smoothing: antialiased; }
 img, svg { max-width: 100%; display: block; }
 a { color: var(--navy-700); }
@@ -221,7 +224,7 @@ select:focus, input:focus, textarea:focus { border-color: var(--navy-700); outli
 .page-head .lead { color: #c3cfdb; }
 
 /* Catalog */
-.catalog-bar { position: sticky; top: 105px; z-index: 10; background: var(--white); border-bottom: 1px solid var(--line); padding: 16px 0; }
+.catalog-bar { position: sticky; top: var(--header-h); z-index: 10; background: var(--white); border-bottom: 1px solid var(--line); padding: 16px 0; }
 .tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin-bottom: 14px; }
 .tabs button { flex: none; padding: 10px 16px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--white); font: inherit; font-weight: 600; font-size: .9rem; cursor: pointer; color: var(--ink); }
 .tabs button[aria-selected=true] { background: var(--navy-800); color: var(--white); border-color: var(--navy-800); }
